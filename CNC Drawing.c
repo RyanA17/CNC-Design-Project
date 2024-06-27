@@ -61,7 +61,7 @@ for(float j = 0; j < width; j++){
 Circle code
 -------------------------*/
 void circle(float radius, float x_shift, float y_shift){ 
-
+/*
 typedef struct{
 
 x_coord;
@@ -70,7 +70,7 @@ y_coord;
 }location;
 
 location locations[MAX];
-
+*/
 
 
 
@@ -139,9 +139,9 @@ for(int j = 0; j<= radius*2; j++){
 
 int main(void){
 
-int x = -5; //x distance fram origin
-int y = 3; //y distance from origin
-int radius = 5;
+int x = 0; //x distance fram origin
+int y = 0; //y distance from origin
+int radius = 20;
     circle(radius,x,y);
 
 
