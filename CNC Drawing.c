@@ -17,12 +17,25 @@ Functions
 -------------------------*/
 //void circle;
 
-int i = 0;
-int j = 0;
+int i = 0; //Rows
+int j = 0; //Columns
+int num = 0;
 
 int main(void){
 
-int matrix[i][j];
+//define the matrix with the max row and columns
+int matrix[ROW][COL];
+
+for(int j = 0; j < 10; j++){
+    for (int i = 0; i < 10; i++) {
+        matrix[i][j] = num;
+        
+        printf("%d",matrix[i][j]);
+    };
+    
+    printf("\n");
+    num++;
+};
 
 return 0;
 }
