@@ -10,20 +10,19 @@
 
 #define ROW 50 /* max rows */
 #define COL 50 /* max columns */
+//1ft = 304.8mm
 
 /*-------------------------
 Functions
 -------------------------*/
 //void circle;
 
-int i;
-int j;
+int i = 0;
+int j = 0;
 
 int main(void){
 
 int matrix[i][j];
-printf("Pizza\n");
-printf("University of New Hampshire\n");
 
 return 0;
 }
