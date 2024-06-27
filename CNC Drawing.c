@@ -3,9 +3,8 @@
 //
 //
 //  Created by Ryan Achong on 6/26/24.
-//
+//Output: x and y coordinates in an array 
 
-#include "CNC Drawing.h"
 #include <stdio.h>
 #include <math.h>
 
