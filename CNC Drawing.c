@@ -104,7 +104,7 @@ if (radius > 25){
     //top arc of circle
     printf("top arc\n");
 
-    //loops for radius length to find the y values 
+    //loops for diameter length to find the y values 
 for(int i = 0; i <= radius*2; i++){
         y = (sqrt(pow(radius,2) - pow((x-x_shift),2)))+y_shift;//calculates the value of y at the x coord 
 
@@ -120,7 +120,7 @@ x = x_shift - radius; ;//reset x coordinate
     //bottom arc of circle 
     printf("bottom arc\n");
 
-    //loops for radius length to find the y values 
+    //loops for diameter length to find the y values 
 for(int j = 0; j<= radius*2; j++){
         y = (-1*((sqrt(pow(radius,2) - pow((x-x_shift),2)))))+y_shift;//calculates the value of y at the x coord (negative)
             
