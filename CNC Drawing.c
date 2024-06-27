@@ -2,7 +2,7 @@
 //  CNC Drawing.c
 //
 //
-//  Created by Ryan A on 6/26/24.
+//  Created by Ryan Achong on 6/26/24.
 //
 
 #include <stdio.h>
