@@ -5,6 +5,7 @@
 //  Created by Ryan Achong on 6/26/24.
 //
 
+#include "CNC Drawing.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -36,6 +37,5 @@ for(int j = 0; j < 10; j++){
     printf("\n");
     num++;
 };
-
 return 0;
 }
