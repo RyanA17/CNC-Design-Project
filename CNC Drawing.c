@@ -27,7 +27,8 @@ typedef struct{
 
 location locations[MAX];//array of structs
 
-
+//xy values start at the origin
+float x = 0, y = 0;
 
 /*-------------------------
 Function declarations
@@ -44,10 +45,13 @@ void points(float x, float y);
 Print function
 -------------------------*/
 void print_func(int z){
+    printf("  X            Y  \n");
+    printf("------------------\n");
 for (int i = 0; i < z; i++){
-    
-    printf("x coordinate %0.3f\n",locations[i].x_coord);
-    printf("y coordinate %0.3f\n\n",locations[i].y_coord);
+    printf("%3.3f",locations[i].x_coord);
+    printf("    |   ");
+    printf("%3.3f\n",locations[i].y_coord);
+    printf("         |   \n");
 
     }
 }   
@@ -57,36 +61,35 @@ Square and Rectangle function
 -------------------------*/
 void square_rectangle(float side, float side1){
 
-float x = 0, y = 0;
 int z = 0;
 
     //start bottom left corner 
-    x = x - side/2;
-    y = y - side1/2;
+    x = 0;
+    y = 0;
         locations[z].x_coord = x;
         locations[z].y_coord = y;
     z++;
 
     //move to bottom right corner 
-    x = x + side;
+    x = side;
         locations[z].x_coord = x;
         locations[z].y_coord = y;
     z++;
 
     //move to top right corner 
-    y = y + side1;
+    y = side1;
         locations[z].x_coord = x;
         locations[z].y_coord = y;
     z++;
 
     //move to top left corner 
-    x = x - side;
+    x = 0;
         locations[z].x_coord = x;
         locations[z].y_coord = y;
     z++;
 
     //move to bottom left corner 
-    y = y - side1;
+    y = 0;
         locations[z].x_coord = x;
         locations[z].y_coord = y;
     z++;
@@ -101,9 +104,6 @@ Circle function
 -------------------------*/
 void circle(float radius, float x_shift, float y_shift){ 
 
-//struct to store the xy pairs 
-
-float x = 0, y = 0;
 int z = 0; //array cell
 
 //start x at the leftmost point in the circle 
@@ -167,7 +167,6 @@ Triangle function
 -------------------------*/
 void triangle(float base, float height){
 
-float x = 0, y = 0;
 int z = 0;
 
 x = x + base;//bottom right
@@ -199,8 +198,6 @@ if (length > 50){
     printf("line too long enter a number less than 50:");
 }
 
-
-float x = 0;
 int z = 0;
 
 x = x - length/ 2;
@@ -222,21 +219,19 @@ Points function
 -------------------------*/
 void points(float x, float y){
 
-
-
 }
 
 int main(void){
 
-int x = 4; //center x distance fram origin
-int y = 2; //center y distance from origin
+int h = 4; //center x distance fram origin
+int k = 2; //center y distance from origin
 int radius = 2;
 
-    circle(radius,x,y);
-    //square_rectangle(y,y);
-    //triangle(x,y);
-    //line(x);
-    //points(x,y)
+    circle(radius,h,k);
+    //square_rectangle(h,h);
+    //triangle(h,k);
+    //line(h);
+    //points(h,k)
 
 return 0;
 }
