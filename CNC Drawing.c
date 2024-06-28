@@ -2,7 +2,7 @@
 //  CNC Drawing.c
 //
 //
-//  Created by Ryan Achong on 6/26/24.
+//  Created by Ryan A on 6/26/24.
 //  Output: x and y coordinates in an array
 //
 //  Commands: compile gcc -o runCNC CNC/ Drawing.c (to compile into the exe file)
@@ -28,18 +28,20 @@ typedef struct{
 location locations[MAX];//array of structs
 
 
+
 /*-------------------------
 Function declarations
 -------------------------*/
+void print_func(int z);
 void square_rectangle(float side, float side1);
 void circle(float radius, float x_shift, float y_shift);
 void triangle(float base, float height);
 void line(float length);
 void points(float x, float y);
-void print_func(int z);
+
 
 /*-------------------------
-print function
+Print function
 -------------------------*/
 void print_func(int z){
 for (int i = 0; i < z; i++){
@@ -186,8 +188,43 @@ z++;
 
 print_func(z);
 
+}//end function
+
+/*-------------------------
+Line function
+-------------------------*/
+void line(float length){
+
+if (length > 50){
+    printf("line too long enter a number less than 50:");
 }
 
+
+float x = 0;
+int z = 0;
+
+x = x - length/ 2;
+    locations[z].x_coord = x;
+    locations[z].y_coord = 0;
+z++;
+
+x = x + length;
+    locations[z].x_coord = x;
+    locations[z].y_coord = 0;
+z++;
+
+print_func(z);
+
+}//end function 
+
+/*-------------------------
+Points function
+-------------------------*/
+void points(float x, float y){
+
+
+
+}
 
 int main(void){
 
@@ -198,9 +235,8 @@ int radius = 2;
     circle(radius,x,y);
     //square_rectangle(y,y);
     //triangle(x,y);
-
-
-
+    //line(x);
+    //points(x,y)
 
 return 0;
 }
