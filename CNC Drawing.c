@@ -26,58 +26,29 @@ Square code
 
 void square(float height,float width){
 
-//let x be the x axis
-//let y be the y axis
-float coordinates[ROW];
-
-//struct to store x and y coordinates 
-    typedef struct{
-        float x;
-        float y
-    }location;
-
-location loc1;
-
-//test 
-float t_matrix[5][5];//test matrix 
-float num = 0;
-float num1 = 0;
-for(float j = 0; j < width; j++){
-        for (float i = 0; i < height; i++)
-        {
-            t_matrix[i][j];
-
-            loc1.x = num;
-            loc1.y = num1;  
-        num++;
-
-        }
-    num1++;
-    }
-
 }
 -------------------------*/
 /*-------------------------
 Circle code
 -------------------------*/
 void circle(float radius, float x_shift, float y_shift){ 
-/*
+
+//struct to store the xy pairs 
 typedef struct{
 
-x_coord;
-y_coord;
+float x_coord;
+float y_coord;
 
 }location;
 
-location locations[MAX];
-*/
-
+location locations[MAX];//array of structs
 
 
 float x = 0, y = 0;
+int z = 0; //array cell
 
 //start x at the leftmost point in the circle 
-x = x_shift - radius;  
+x = x_shift - radius;
 
 //check is the values are in the boundary of the base to make a full circle
 if (radius > 25){
@@ -90,36 +61,31 @@ if (radius > 25){
         printf("x axis shift and y axis shift have to be zero\n");
     }//if raidus = max checks if the shifts are 0
 
-        if (fabs(x) >= 25 || fabs(x = x_shift + radius >= 25)){
+        if (fabs(x) >= 25 || abs(x_shift + radius >= 25)){
             
             printf("circle is too far left decrease raidus or x axis shift\n");
         }//checks if the x axis shifts are too large
 
-            if (fabs(y = y_shift + radius) >= 25 || fabs(y = y_shift - radius) >= 25){
+            if (fabs(y_shift + radius) >= 25 || fabs(y_shift - radius) >= 25){
                 
                 printf("circle is too high decrease raidus or y axis shift\n");
             } //checks if the y axis shifts are too large
 
 
-    //top arc of circle
-    printf("top arc\n");
-
     //loops for diameter length to find the y values 
 for(int i = 0; i <= radius*2; i++){
         y = (sqrt(pow(radius,2) - pow((x-x_shift),2)))+y_shift;//calculates the value of y at the x coord 
 
-            //prints the coordinate value 
-                printf("x coordinate: %f\n",x);
-                printf("y coordinate: %f\n\n",y);
+            //store the value in the struct 
+        locations[z].x_coord = x;
+        locations[z].y_coord = y; 
+
                     x++;//increments the x coord by 1
+                    z++;//goes to the next array cell
     }//end loop 
 
 
-x = x_shift - radius; ;//reset x coordinate
-    
-    //bottom arc of circle 
-    printf("bottom arc\n");
-
+x = x_shift - radius; ;//reset x coordinate (should it start at right most point?)
     //loops for diameter length to find the y values 
 for(int j = 0; j<= radius*2; j++){
         y = (-1*((sqrt(pow(radius,2) - pow((x-x_shift),2)))))+y_shift;//calculates the value of y at the x coord (negative)
@@ -128,10 +94,21 @@ for(int j = 0; j<= radius*2; j++){
                 y = fabs(y);
             }
             
-                printf("x coordinate: %f\n",x);
-                printf("y coordinate: %f\n\n",y);
+            locations[z].x_coord = x;
+            locations[z].y_coord = y;
+
                     x++;
+                    z++;
     }//end loop
+
+
+for (int i = 0; i < z; i++){
+    
+    printf("x coordinate %0.3f\n",locations[i].x_coord);
+    printf("y coordinate %0.3f\n\n",locations[i].y_coord);
+
+}
+
 }//end function
 
 
@@ -139,9 +116,9 @@ for(int j = 0; j<= radius*2; j++){
 
 int main(void){
 
-int x = 0; //x distance fram origin
-int y = 0; //y distance from origin
-int radius = 20;
+int x = 4; //center x distance fram origin
+int y = 2; //center y distance from origin
+int radius = 2;
     circle(radius,x,y);
 
 
