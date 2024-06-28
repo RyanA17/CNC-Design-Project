@@ -7,42 +7,42 @@
 //
 //  Commands: compile gcc -o runCNC CNC/ Drawing.c (to compile into the exe file)
 //  ./runCNC (to run the exe file)
-
+//  to do: convert all inputs from mm to feet 
+//  1ft = 304.8mm
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 
 #define MAX 50
-//1ft = 304.8mm
+
 
 /*-------------------------
-Functions
+Function declarations
 -------------------------*/
 void square(float height,float width);
 void circle(float radius, float x_center, float y_center);
 
 /*-------------------------
-Square code
+Square function
 
 void square(float height,float width){
 
 }
 -------------------------*/
 /*-------------------------
-Circle code
+Circle function
 -------------------------*/
 void circle(float radius, float x_shift, float y_shift){ 
 
 //struct to store the xy pairs 
 typedef struct{
 
-float x_coord;
-float y_coord;
+    float x_coord;
+    float y_coord;
 
 }location;
 
 location locations[MAX];//array of structs
-
 
 float x = 0, y = 0;
 int z = 0; //array cell
@@ -101,7 +101,7 @@ for(int j = 0; j<= radius*2; j++){
                     z++;
     }//end loop
 
-
+//prints all pairs of xy locations
 for (int i = 0; i < z; i++){
     
     printf("x coordinate %0.3f\n",locations[i].x_coord);
