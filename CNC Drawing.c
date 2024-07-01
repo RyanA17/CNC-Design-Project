@@ -14,29 +14,23 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-
 #define MAX 50
 
-//store xy coordinates
 typedef struct{
-
-    float x_coord;
-    float y_coord;
-
-}location;
+float x_coord;
+float y_coord;
+}location;//store xy coordinates
 
 location locations[MAX];//array of structs
-
-//xy values start at the origin
-float x = 0, y = 0;
+float x = 0, y = 0;//xy values start at the origin
 
 /*-------------------------
 Function declarations
 -------------------------*/
-void print_func(int z);
+void print_func(int array_location);
 void square_rectangle(float side, float side1);
-void circle(float radius, float x_shift, float y_shift);
-void triangle(float base, float height);
+void circle(float radius);
+void triangle(float base);
 void line(float length);
 void points(float x, float y);
 
@@ -44,14 +38,9 @@ void points(float x, float y);
 /*-------------------------
 Print function
 -------------------------*/
-void print_func(int z){
-    printf("  X            Y  \n");
-    printf("------------------\n");
-for (int i = 0; i < z; i++){
-    printf("%3.3f",locations[i].x_coord);
-    printf("    |   ");
-    printf("%3.3f\n",locations[i].y_coord);
-    printf("         |   \n");
+void print_func(int array_location){
+for (int i = 0; i < array_location; i++){
+    printf("(%3.2f,%3.2f)\n\n",locations[i].x_coord, locations[i].y_coord);
 
     }
 }   
@@ -63,38 +52,50 @@ void square_rectangle(float side, float side1){
 
 int z = 0;
 
-    //start bottom left corner 
-    x = 0;
-    y = 0;
-        locations[z].x_coord = x;
-        locations[z].y_coord = y;
-    z++;
+if (side == side1 && side > 50){
+    printf("side length is too big enter a number less than or equal to 50:");
+}//checks if square is too big
 
-    //move to bottom right corner 
-    x = side;
-        locations[z].x_coord = x;
-        locations[z].y_coord = y;
-    z++;
+if(side != side1){
+    if (side > 50 || side1 > 50){
+        printf("side length is too big enter a number less than or equal to 50:");
+    } 
+}//checks if rectangle is too big
 
-    //move to top right corner 
-    y = side1;
+
+    //start top right corner 
+    x = side/2;
+    y = side1/2;
         locations[z].x_coord = x;
         locations[z].y_coord = y;
     z++;
 
     //move to top left corner 
-    x = 0;
+    x = x - side;
         locations[z].x_coord = x;
         locations[z].y_coord = y;
     z++;
 
     //move to bottom left corner 
-    y = 0;
+    y = y - side1;
+        locations[z].x_coord = x;
+        locations[z].y_coord = y;
+    z++;
+
+    //move to bottom right corner 
+    x = x + side;
+        locations[z].x_coord = x;
+        locations[z].y_coord = y;
+    z++;
+
+    //move to bottom left corner 
+    y = y + side1;
         locations[z].x_coord = x;
         locations[z].y_coord = y;
     z++;
 
 //prints all pairs of xy locations
+printf("Coordinates for square/rectangle\n");
 print_func(z);
 
 }
@@ -102,33 +103,16 @@ print_func(z);
 /*-------------------------
 Circle function
 -------------------------*/
-void circle(float radius, float x_shift, float y_shift){ 
+void circle(float radius){ 
 
 int z = 0; //array cell
 
 //start x at the leftmost point in the circle 
-x = x_shift - radius;
+x = -1*(radius);
 
-//check is the values are in the boundary of the base to make a full circle
 if (radius > 25){
-    
     printf("Radius is too big please enter a number less than or equal to 25\n");
 }//checks if radius is too big 
-
-    if (radius == 25 && x_shift > 0 && y_shift >0){
-        
-        printf("x axis shift and y axis shift have to be zero\n");
-    }//if raidus = max checks if the shifts are 0
-
-        if (fabs(x) >= 25 || abs(x_shift + radius >= 25)){
-            
-            printf("circle is too far left decrease raidus or x axis shift\n");
-        }//checks if the x axis shifts are too large
-
-            if (fabs(y_shift + radius) >= 25 || fabs(y_shift - radius) >= 25){
-                
-                printf("circle is too high decrease raidus or y axis shift\n");
-            } //checks if the y axis shifts are too large
 
 for (int j = 0; j <= 1; j++){//loops to do top and bottom arc
 
@@ -136,12 +120,12 @@ for (int j = 0; j <= 1; j++){//loops to do top and bottom arc
     for(int i = 0; i <= radius*2; i++){
 
         if (j == 0){//top arc
-            y = (sqrt(pow(radius,2) - pow((x-x_shift),2)))+y_shift;
+            y = sqrt(pow(radius,2) - pow(x,2));
             //calculates the value of y at the x coord 
 }
         
         if (j == 1){//bottom arc 
-            y = (-1*((sqrt(pow(radius,2) - pow((x-x_shift),2)))))+y_shift;
+            y = -1*(sqrt(pow(radius,2) - pow(x,2)));
             //calculates the value of y at the x coord (negative)
 }
 
@@ -152,7 +136,7 @@ for (int j = 0; j <= 1; j++){//loops to do top and bottom arc
                     x++;//increments the x coord by 1
                     z++;//goes to the next array cell
         }//end loop 
-x = x_shift - radius; ;//reset x coordinate (should it start at right most point?)
+x = -1*(radius);//reset x coordinate 
 }//end loop
 
 printf("Coordinates for circle\n");
@@ -165,26 +149,42 @@ print_func(z);
 /*-------------------------
 Triangle function
 -------------------------*/
-void triangle(float base, float height){
+void triangle(float base){
 
 int z = 0;
 
-x = x + base;//bottom right
+//find the height of the triangle
+float height = sqrt(pow(base,2) - pow((base/2),2));
+
+
+//bottom left of triangle 
+y = -1*(height/2);
+x = -1*(base/2);
     locations[z].x_coord = x;
     locations[z].y_coord = y;
 z++;
 
-x = 0;//top left 
-y = y + height;
+//top point of triangle 
+x = 0;
+y = (height/2);
     locations[z].x_coord = x;
     locations[z].y_coord = y;
 z++;
 
-y = 0;//back to start
+//bottome right of triangle
+x = (base/2);
+y = -1*(height/2);
     locations[z].x_coord = x;
     locations[z].y_coord = y;
 z++;
 
+y = -1*(height/2);
+x = -1*(base/2);
+    locations[z].x_coord = x;
+    locations[z].y_coord = y;
+z++;
+
+printf("Coordinates for triangle\n");
 print_func(z);
 
 }//end function
@@ -200,16 +200,17 @@ if (length > 50){
 
 int z = 0;
 
-x = x - length/ 2;
+x = -1*(length/ 2);
     locations[z].x_coord = x;
     locations[z].y_coord = 0;
 z++;
 
-x = x + length;
+x = (length/2);
     locations[z].x_coord = x;
     locations[z].y_coord = 0;
 z++;
 
+printf("Coordinates for line\n");
 print_func(z);
 
 }//end function 
@@ -218,20 +219,29 @@ print_func(z);
 Points function
 -------------------------*/
 void points(float x, float y){
-
+int z = 0;
+    locations[z].x_coord = x;
+    locations[z].y_coord = y;
+z++;
+printf("Coordinate for point\n");
+print_func(z);
 }
 
+/*-------------------------
+-------------------------*/
 int main(void){
+float radius = 2;
+float side = 10, side1 = 6;
+float base = 4;
+float length = 25;
+float x = 1, y = 9;
 
-int h = 4; //center x distance fram origin
-int k = 2; //center y distance from origin
-int radius = 2;
+square_rectangle(side,side1);
+circle(radius);
+triangle(base);
+line(length);
+points(x,y);
 
-    circle(radius,h,k);
-    //square_rectangle(h,h);
-    //triangle(h,k);
-    //line(h);
-    //points(h,k)
 
 return 0;
 }
