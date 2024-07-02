@@ -15,6 +15,7 @@
 #include <math.h>
 #include <stdlib.h>
 #define MAX 50
+#define pi 3.1415926535897
 
 typedef struct{
 float x_coord;
@@ -33,7 +34,8 @@ void circle(float radius);
 void triangle(float base);
 void line(float length);
 void points(float x, float y);
-
+void n_polygon(int side, float radius);
+void check_neg_zero (float x, float y);
 
 /*-------------------------
 Print function
@@ -62,36 +64,29 @@ if(side != side1){
     } 
 }//checks if rectangle is too big
 
-
     //start top right corner 
-    x = side/2;
-    y = side1/2;
-        locations[z].x_coord = x;
-        locations[z].y_coord = y;
+        locations[z].x_coord = side/2;
+        locations[z].y_coord = side1/2;
     z++;
 
     //move to top left corner 
-    x = x - side;
-        locations[z].x_coord = x;
-        locations[z].y_coord = y;
+        locations[z].x_coord = -1*(side/2);
+        locations[z].y_coord = side1/2;
     z++;
 
     //move to bottom left corner 
-    y = y - side1;
-        locations[z].x_coord = x;
-        locations[z].y_coord = y;
+        locations[z].x_coord = -1*(side/2);
+        locations[z].y_coord = -1*(side1/2);
     z++;
 
     //move to bottom right corner 
-    x = x + side;
-        locations[z].x_coord = x;
-        locations[z].y_coord = y;
+        locations[z].x_coord = side/2;
+        locations[z].y_coord = -1*(side1/2);
     z++;
 
-    //move to bottom left corner 
-    y = y + side1;
-        locations[z].x_coord = x;
-        locations[z].y_coord = y;
+    //move to top right corner 
+        locations[z].x_coord = side/2;
+        locations[z].y_coord = side1/2;
     z++;
 
 //prints all pairs of xy locations
@@ -158,30 +153,23 @@ float height = sqrt(pow(base,2) - pow((base/2),2));
 
 
 //bottom left of triangle 
-y = -1*(height/2);
-x = -1*(base/2);
-    locations[z].x_coord = x;
-    locations[z].y_coord = y;
+    locations[z].x_coord = -1*(height/2);
+    locations[z].y_coord = -1*(base/2);
 z++;
 
 //top point of triangle 
-x = 0;
-y = (height/2);
-    locations[z].x_coord = x;
-    locations[z].y_coord = y;
+    locations[z].x_coord = 0;
+    locations[z].y_coord = (height/2);
 z++;
 
 //bottome right of triangle
-x = (base/2);
-y = -1*(height/2);
-    locations[z].x_coord = x;
-    locations[z].y_coord = y;
+    locations[z].x_coord = (base/2);
+    locations[z].y_coord = -1*(height/2);
 z++;
 
-y = -1*(height/2);
-x = -1*(base/2);
-    locations[z].x_coord = x;
-    locations[z].y_coord = y;
+//starting point
+    locations[z].x_coord = -1*(height/2);
+    locations[z].y_coord = -1*(base/2);
 z++;
 
 printf("Coordinates for triangle\n");
@@ -200,13 +188,11 @@ if (length > 50){
 
 int z = 0;
 
-x = -1*(length/ 2);
-    locations[z].x_coord = x;
+    locations[z].x_coord = -1*(length/ 2);
     locations[z].y_coord = 0;
 z++;
 
-x = (length/2);
-    locations[z].x_coord = x;
+    locations[z].x_coord = (length/2);
     locations[z].y_coord = 0;
 z++;
 
@@ -228,6 +214,24 @@ print_func(z);
 }
 
 /*-------------------------
+N-polygon function
+-------------------------*/
+void n_polygon(int side, float radius){
+int z = 0;
+
+    for (int i = 0; i <= side; i++) {
+    
+        locations[z].x_coord = radius * cos((2*pi*i)/side);
+        locations[z].y_coord = radius * sin((2*pi*i)/side);
+    
+        z++;
+    }
+printf("%d sided polygon\n",side);
+print_func(z);
+}
+
+
+/*-------------------------
 -------------------------*/
 int main(void){
 float radius = 2;
@@ -241,6 +245,7 @@ circle(radius);
 triangle(base);
 line(length);
 points(x,y);
+n_polygon(5,5);
 
 
 return 0;
