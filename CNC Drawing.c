@@ -9,13 +9,14 @@
 //  ./runCNC (to run the exe file)
 //  to do: convert all inputs from mm to feet 
 //  1ft = 304.8mm
+//ADD IN CONDITIONAL STATEMENTS FOR THE XY SHIFTS
 
 //float length = sqrt(((pow(x,2))+(pow(y,2))));
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #define MAX 50
-#define pi 3.1415926535897
+#define pi 3.14159
 
 typedef struct{
 float x_coord;
@@ -28,14 +29,14 @@ float x = 0, y = 0;//xy values start at the origin
 /*-------------------------
 Function declarations
 -------------------------*/
-void print_func(int array_location);
-void square_rectangle(float side, float side1);
-void circle(float radius);
-void triangle(float base);
-void line(float length);
-void points(float x, float y);
-void n_polygon(int side, float radius);
-void check_neg_zero (float x, float y);
+void print_func(int);
+void square_rectangle(float,float,float,float);
+void circle(float,float,float);
+void triangle(float,float,float);
+void line(float,float,float);
+void points(float,float);
+void n_polygon(int,float,float,float);
+void check_neg_zero (float,float);
 
 /*-------------------------
 Print function
@@ -50,7 +51,7 @@ for (int i = 0; i < array_location; i++){
 /*-------------------------
 Square and Rectangle function
 -------------------------*/
-void square_rectangle(float side, float side1){
+void square_rectangle(float side, float side1, float x_shift, float y_shift){
 
 int z = 0;
 
@@ -65,28 +66,28 @@ if(side != side1){
 }//checks if rectangle is too big
 
     //start top right corner 
-        locations[z].x_coord = side/2;
-        locations[z].y_coord = side1/2;
+        locations[z].x_coord = (side/2) + x_shift;
+        locations[z].y_coord = (side1/2) + y_shift;
     z++;
 
     //move to top left corner 
-        locations[z].x_coord = -1*(side/2);
-        locations[z].y_coord = side1/2;
+        locations[z].x_coord = -1*((side/2) + x_shift);
+        locations[z].y_coord = (side1/2) + y_shift;
     z++;
 
     //move to bottom left corner 
-        locations[z].x_coord = -1*(side/2);
-        locations[z].y_coord = -1*(side1/2);
+        locations[z].x_coord = -1*((side/2) + x_shift);
+        locations[z].y_coord = -1*((side1/2) + y_shift);
     z++;
 
     //move to bottom right corner 
-        locations[z].x_coord = side/2;
-        locations[z].y_coord = -1*(side1/2);
+        locations[z].x_coord = (side/2) + x_shift;
+        locations[z].y_coord = -1*((side1/2) + y_shift);
     z++;
 
     //move to top right corner 
-        locations[z].x_coord = side/2;
-        locations[z].y_coord = side1/2;
+        locations[z].x_coord = (side/2) + x_shift;
+        locations[z].y_coord = (side1/2) + y_shift;
     z++;
 
 //prints all pairs of xy locations
@@ -96,14 +97,14 @@ print_func(z);
 }
 
 /*-------------------------
-Circle function
+Circle function  
 -------------------------*/
-void circle(float radius){ 
+void circle(float radius, float x_shift, float y_shift){ 
 
 int z = 0; //array cell
 
 //start x at the leftmost point in the circle 
-x = -1*(radius);
+x = x_shift - radius;
 
 if (radius > 25){
     printf("Radius is too big please enter a number less than or equal to 25\n");
@@ -114,15 +115,15 @@ for (int j = 0; j <= 1; j++){//loops to do top and bottom arc
     //loops for diameter length to find the y values 
     for(int i = 0; i <= radius*2; i++){
 
-        if (j == 0){//top arc
-            y = sqrt(pow(radius,2) - pow(x,2));
+        if (j == 0){
+            y = sqrt(pow(radius,2) - pow((x - x_shift),2))+y_shift;
             //calculates the value of y at the x coord 
-}
+}//top arc
         
-        if (j == 1){//bottom arc 
-            y = -1*(sqrt(pow(radius,2) - pow(x,2)));
+        if (j == 1){
+            y = (-1*(sqrt(pow(radius,2) - pow((x - x_shift),2))))+y_shift;
             //calculates the value of y at the x coord (negative)
-}
+}//bottom arc
 
             //store the value in the struct 
         locations[z].x_coord = x;
@@ -131,7 +132,7 @@ for (int j = 0; j <= 1; j++){//loops to do top and bottom arc
                     x++;//increments the x coord by 1
                     z++;//goes to the next array cell
         }//end loop 
-x = -1*(radius);//reset x coordinate 
+x = x_shift - radius;//reset x coordinate 
 }//end loop
 
 printf("Coordinates for circle\n");
@@ -144,32 +145,35 @@ print_func(z);
 /*-------------------------
 Triangle function
 -------------------------*/
-void triangle(float base){
+void triangle(float base, float x_shift, float y_shift){
 
 int z = 0;
 
 //find the height of the triangle
 float height = sqrt(pow(base,2) - pow((base/2),2));
 
+if (base > 50) {
+    printf("base is too big please enter a number smaller than 50:");
+}
 
 //bottom left of triangle 
-    locations[z].x_coord = -1*(height/2);
-    locations[z].y_coord = -1*(base/2);
+    locations[z].x_coord = -1*(base/2) + x_shift;
+    locations[z].y_coord = -1*(height/2) + y_shift;
 z++;
 
 //top point of triangle 
-    locations[z].x_coord = 0;
-    locations[z].y_coord = (height/2);
+    locations[z].x_coord = 0 + x_shift;
+    locations[z].y_coord = (height/2) + y_shift;
 z++;
 
 //bottome right of triangle
-    locations[z].x_coord = (base/2);
-    locations[z].y_coord = -1*(height/2);
+    locations[z].x_coord = (base/2) + x_shift;
+    locations[z].y_coord = -1*(height/2) + y_shift;
 z++;
 
 //starting point
-    locations[z].x_coord = -1*(height/2);
-    locations[z].y_coord = -1*(base/2);
+    locations[z].x_coord = -1*(base/2) + x_shift;
+    locations[z].y_coord = -1*(height/2) + y_shift;
 z++;
 
 printf("Coordinates for triangle\n");
@@ -180,7 +184,7 @@ print_func(z);
 /*-------------------------
 Line function
 -------------------------*/
-void line(float length){
+void line(float length, float x_shift, float y_shift){
 
 if (length > 50){
     printf("line too long enter a number less than 50:");
@@ -188,12 +192,12 @@ if (length > 50){
 
 int z = 0;
 
-    locations[z].x_coord = -1*(length/ 2);
-    locations[z].y_coord = 0;
+    locations[z].x_coord = -1*(length/ 2) + x_shift;
+    locations[z].y_coord = 0 + y_shift;
 z++;
 
-    locations[z].x_coord = (length/2);
-    locations[z].y_coord = 0;
+    locations[z].x_coord = (length/2) + x_shift;
+    locations[z].y_coord = 0 + y_shift;
 z++;
 
 printf("Coordinates for line\n");
@@ -205,10 +209,16 @@ print_func(z);
 Points function
 -------------------------*/
 void points(float x, float y){
+
+if (x > 50 || y > 50) {
+    printf("Coordinates are out of the plane enter a number less than 50:");
+}
+
 int z = 0;
     locations[z].x_coord = x;
     locations[z].y_coord = y;
 z++;
+
 printf("Coordinate for point\n");
 print_func(z);
 }
@@ -216,13 +226,17 @@ print_func(z);
 /*-------------------------
 N-polygon function
 -------------------------*/
-void n_polygon(int side, float radius){
+void n_polygon(int side, float radius, float x_shift, float y_shift){
 int z = 0;
+
+if (radius > 50){
+    printf("radius is took big enter a number less than 50:");
+}
 
     for (int i = 0; i <= side; i++) {
     
-        locations[z].x_coord = radius * cos((2*pi*i)/side);
-        locations[z].y_coord = radius * sin((2*pi*i)/side);
+        locations[z].x_coord = radius * cos(((2*pi*i)/side)+(pi/2)) + x_shift;
+        locations[z].y_coord = radius * sin(((2*pi*i)/side)+(pi/2)) + y_shift;
     
         z++;
     }
@@ -240,12 +254,7 @@ float base = 4;
 float length = 25;
 float x = 1, y = 9;
 
-square_rectangle(side,side1);
-circle(radius);
-triangle(base);
-line(length);
-points(x,y);
-n_polygon(5,5);
+n_polygon(8,10,0,0);
 
 
 return 0;
