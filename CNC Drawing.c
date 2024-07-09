@@ -232,6 +232,28 @@ float base = 4;
 float length = 25;
 float x = 1, y = 9;
 
+char shape[10];
+char test[10] = "rectangle";
+printf("Choose from below:\n");
+printf("rectangle\n");
+printf("circle\n");
+printf("triangle\n");
+printf("line\n");
+printf("points\n");
+printf("Enter what you want:\n");
+scanf("%s\n",shape);
+printf("You chose to make a: %s\n",shape);
+
+switch (shape[10]){
+case test[10]:
+    /* code */
+    break;
+
+default:
+    break;
+}
+
+
 n_polygon(8,10,0,0);
 
 
