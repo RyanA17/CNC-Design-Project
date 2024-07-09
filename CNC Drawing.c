@@ -226,34 +226,12 @@ print_func(z);
 /*-------------------------
 -------------------------*/
 int main(void){
-float radius = 2;
-float side = 10, side1 = 6;
-float base = 4;
-float length = 25;
-float x = 1, y = 9;
 
-char shape[10];
-char test[10] = "rectangle";
-printf("Choose from below:\n");
-printf("rectangle\n");
-printf("circle\n");
-printf("triangle\n");
-printf("line\n");
-printf("points\n");
-printf("Enter what you want:\n");
-scanf("%s\n",shape);
-printf("You chose to make a: %s\n",shape);
-
-switch (shape[10]){
-case test[10]:
-    /* code */
-    break;
-
-default:
-    break;
-}
-
-
+square_rectangle(10,4,0,0);
+circle(5,0,0);
+triangle(3,0,0);
+line(20,0,0);
+points(10,4);
 n_polygon(8,10,0,0);
 
 
