@@ -23,9 +23,6 @@ void print_func(int max_location){
 for (int i = 0; i < max_location; i++){
     printf("(%3.2f,%3.2f)\n\n",locations[i].x_coord, locations[i].y_coord);
 
-printf("hello this is error)
-
-
     }//end loop
 }//loops through the array of xy coordinates
 
