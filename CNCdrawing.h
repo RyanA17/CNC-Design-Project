@@ -1,12 +1,12 @@
 //
-//  CNC Drawing.h
+//  CNCdrawing.h
 //  
 //
-//  Created by Ryan A on 7/8/24.
+//  Created by Ryan A on 7/11/24.
 //
 
-#ifndef CNC_Drawing_h
-#define CNC_Drawing_h
+#ifndef CNCdrawing_h
+#define CNCdrawing_h
 
 #include <stdio.h>
 #include <math.h>
@@ -20,7 +20,6 @@ float y_coord;
 }location;//store xy coordinates
 
 location locations[MAX];//array of structs
-float x = 0, y = 0;//xy values start at the origin
 
 /*-------------------------
 Function declarations
@@ -34,4 +33,4 @@ void points(float,float);
 void n_polygon(int,float,float,float);
 
 
-#endif /* CNC_Drawing_h */
+#endif /* CNCdrawing_h */

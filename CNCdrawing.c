@@ -4,7 +4,7 @@ CNC Drawing.c
  Created by Ryan A on 6/26/24.
 Output: x and y coordinates in an array
 
- Commands: compile gcc -o runCNC CNC/ Drawing.c (to compile into the exe file)
+ Commands: compile gcc CNCmain.c CNCdrawing.c -o runCNC (compile to exe file)
 ./runCNC (to run the exe file)
 
 to do: convert all inputs from mm to feet 
@@ -14,7 +14,7 @@ add in conditional statments for the xy shifts
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include "CNC Drawing.h"
+#include "CNCdrawing.h"
 
 /*-------------------------
 Print function
@@ -80,6 +80,8 @@ Circle function
 void circle(float radius, float x_shift, float y_shift){ 
 
 int z = 0; //first array cell
+int x = 0;
+int y = 0;
 
 //start x at the leftmost point in the circle 
 x = x_shift - radius;
@@ -186,15 +188,15 @@ print_func(z);
 /*-------------------------
 Points function
 -------------------------*/
-void points(float x, float y){
+void points(float x_point, float y_point){
 
-if (x > 50 || y > 50) {
+if (x_point > 50 || y_point > 50) {
     printf("Coordinates are out of the plane enter a number less than 50:");
 }
 //stores the location of the point in an array
 int z = 0;
-    locations[z].x_coord = x;
-    locations[z].y_coord = y;
+    locations[z].x_coord = x_point;
+    locations[z].y_coord = y_point;
 z++;
 
 printf("Coordinate for point\n");
@@ -220,20 +222,4 @@ if (radius > 50){
     }
 printf("%d sided polygon\n",side);
 print_func(z);
-}
-
-
-/*-------------------------
--------------------------*/
-int main(void){
-
-square_rectangle(10,4,0,0);
-circle(5,0,0);
-triangle(3,0,0);
-line(20,0,0);
-points(10,4);
-n_polygon(8,10,0,0);
-
-
-return 0;
-}
+}//end function
